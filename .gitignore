@@ -1,0 +1,14 @@
+#Java files
+*.class
+target
+*.jar
+
+#Compiler files
+.idea
+*.iml
+
+#Vagrat files
+.vagrant/*
+
+#Log files
+*.log
