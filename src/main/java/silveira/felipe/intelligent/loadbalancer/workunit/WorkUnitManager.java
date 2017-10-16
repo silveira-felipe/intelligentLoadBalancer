@@ -31,7 +31,8 @@ public interface WorkUnitManager {
      *
      * @param workers the number of workers requested.
      * @param workUnitNumber the number of the work unit.
+     * @param workLoadType the work load type.
      * @return {@link WorkReport}
      */
-    WorkReport workRequest(final int workers, final int workUnitNumber);
+    WorkReport workRequest(final int workers, final int workUnitNumber, final String workLoadType);
 }

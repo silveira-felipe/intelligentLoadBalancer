@@ -37,8 +37,9 @@ public interface WorkUnitService {
      * This method requests workers.
      *
      * @param workers the number of workers requested.
+     * @param workLoadType the work load type.
      * @return {@link WorkReport}
      */
     @GET("workRequest")
-    Call<WorkReport> workRequest(@Header("workers") int workers);
+    Call<WorkReport> workRequest(@Header("workers") int workers, @Header("workLoadType") String workLoadType);
 }

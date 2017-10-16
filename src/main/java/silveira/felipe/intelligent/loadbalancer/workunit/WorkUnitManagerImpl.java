@@ -60,7 +60,7 @@ public class WorkUnitManagerImpl implements WorkUnitManager {
      * {@inheritDoc}.
      */
     @Override
-    public WorkReport workRequest(final int workers, final int workUnitNumber) {
+    public WorkReport workRequest(final int workers, final int workUnitNumber, final String workLoadType) {
         LOGGER.debug("Starting Work Request: workUnitNumber={}, workers=#{}", workUnitNumber, workers);
 
         String workUnitPort = Integer.toString(ConfigManager.getWorkUnitPort() + workUnitNumber);
@@ -73,7 +73,7 @@ public class WorkUnitManagerImpl implements WorkUnitManager {
         final WorkUnitService workUnitService = getWorkUnitService(workUnitUrl);
 
         final Call<WorkReport> call
-                = workUnitService.workRequest(workers);
+                = workUnitService.workRequest(workers, workLoadType);
         try {
             LOGGER.debug("Requesting {} workers from workUnit={}.", workers, workUnitNumber);
             final Response<WorkReport> response = call(call);
@@ -123,7 +123,7 @@ public class WorkUnitManagerImpl implements WorkUnitManager {
             } else {
                 LOGGER.error("Attempt #{} failed to make call on WorkUnit", i);
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(6000);
                 } catch (InterruptedException e) {
                     LOGGER.error("Thread.sleep fail {}", e.getMessage());
                 }
