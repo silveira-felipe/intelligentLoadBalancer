@@ -1,9 +1,5 @@
 package silveira.felipe.intelligent.loadbalancer.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 public class WorkRequestOrder {
 
     /**

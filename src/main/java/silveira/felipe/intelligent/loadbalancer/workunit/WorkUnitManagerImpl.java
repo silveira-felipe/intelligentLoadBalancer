@@ -49,6 +49,10 @@ public class WorkUnitManagerImpl implements WorkUnitManager {
      * Logger object used to log messages.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(WorkUnitManagerImpl.class);
+
+    /**
+     * Constant with the WorkUnit end point.
+     */
     private static final String WORKUNIT_API = "workunit/api/v0.1/worker/";
 
     /**

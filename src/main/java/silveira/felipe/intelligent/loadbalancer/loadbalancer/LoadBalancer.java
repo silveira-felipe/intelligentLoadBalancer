@@ -13,12 +13,18 @@ public class LoadBalancer {
     protected final int workRequestMaxNumber;
 
     /**
+     * WorkStack used for test (DEBUG ONLY)
+     */
+    protected Stack<WorkRequestOrder> workOrderStack = new Stack<>();
+
+    /**
      * Work request order stack.
      */
     protected final Stack<WorkRequestOrder> workRequestOrderStack;
 
     /**
      * LoadBalancer constructor.
+     *
      * @param workRequestMaxNumber the work request max number.
      */
     public LoadBalancer(int workRequestMaxNumber) {
@@ -31,34 +37,43 @@ public class LoadBalancer {
     }
 
     /**
-     * Create the work request order stack.
+     * Create the work request order stack. This method is allowing only one
+     * stack with the propose to compare the different load balancer types.
+     *
      * @param workRequestMaxNumber the work request max number.
      * @return the work request order stack.
      */
     public Stack<WorkRequestOrder> createWorkRequestStack(int workRequestMaxNumber) {
-        int numberOfWorkers;
-        String workLoadType;
-        Stack<WorkRequestOrder> workOrderStack = new Stack<>();
+        if (workOrderStack.isEmpty()) {
+            int numberOfWorkers;
+            String workLoadType;
 
-        Random random = new Random();
-        for (int i = 0; i < workRequestMaxNumber;i++) {
-            numberOfWorkers = random.nextInt(3) + 1;
-            switch (random.nextInt(3)) {
-                case 0:
-                    workLoadType = "light";
-                    break;
-                case 1:
-                    workLoadType = "medium";
-                    break;
-                default:
-                    workLoadType = "high";
-                    break;
+            Random random = new Random();
+            for (int i = 0; i < workRequestMaxNumber; i++) {
+                numberOfWorkers = random.nextInt(3) + 1;
+                switch (random.nextInt(3)) {
+                    case 0:
+                        workLoadType = "light";
+                        break;
+                    case 1:
+                        workLoadType = "medium";
+                        break;
+                    default:
+                        workLoadType = "high";
+                        break;
+                }
+                workOrderStack.push(new WorkRequestOrder(numberOfWorkers, workLoadType));
             }
-            workOrderStack.push(new WorkRequestOrder(numberOfWorkers, workLoadType));
         }
         return workOrderStack;
     }
 
+    /**
+     * Return a numerical representation for the work load type.
+     *
+     * @param loadType work load type
+     * @return a numerical representation of the load type
+     */
     public int loadTypeToLabel(String loadType) {
         switch (loadType) {
             case "high":
