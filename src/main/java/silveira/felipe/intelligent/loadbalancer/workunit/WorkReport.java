@@ -88,4 +88,20 @@ public class WorkReport {
                 .append("workAccepted", workAccepted)
                 .toString();
     }
+
+    public String getWorkUnionId() {
+        return workUnionId;
+    }
+
+    public void setWorkUnionId(String workUnionId) {
+        this.workUnionId = workUnionId;
+    }
+
+    public Boolean getWorkAccepted() {
+        return workAccepted;
+    }
+
+    public void setWorkAccepted(Boolean workAccepted) {
+        this.workAccepted = workAccepted;
+    }
 }

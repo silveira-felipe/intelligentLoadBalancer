@@ -22,24 +22,24 @@
  * SOFTWARE.
  */
 
-package silveira.felipe.intelligent.loadbalancer.workunit;
+package silveira.felipe.intelligent.loadbalancer.ai;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 /**
- * This interface contains the methods that are used to access WorkUnit through Retrofit.
+ * This interface contains the methods that are used to access AI service through Retrofit.
  */
-public interface WorkUnitService {
+public interface AiService {
 
     /**
-     * This method requests workers.
+     * This method requests a prediction from the Machine Learn algorithm.
      *
-     * @param workers the number of workers requested.
+     * @param numberOfWorkers the number of workers requested.
      * @param workLoadType the work load type.
-     * @return {@link WorkReport}
+     * @return a list with the probability for each node
      */
-    @GET("workRequest")
-    Call<WorkReport> workRequest(@Header("workers") int workers, @Header("workLoadType") String workLoadType);
+    @GET("predict")
+    Call<String> predict(@Header("numberOfWorkers") double numberOfWorkers, @Header("workLoadType") double workLoadType);
 }

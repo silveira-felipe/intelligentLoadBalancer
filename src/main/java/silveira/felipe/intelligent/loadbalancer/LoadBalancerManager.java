@@ -28,4 +28,26 @@ package silveira.felipe.intelligent.loadbalancer;
  * This interface provides the methods for LoadBalancerManager implementation.
  */
 public interface LoadBalancerManager {
+
+    /**
+     * Execute the Round Robin Load Balancer.
+     * @param workRequestMaxNumber the work request max number.
+     * @return the libsvm data.
+     */
+    String roundRobin(final int workRequestMaxNumber);
+
+    /**
+     * Execute the Observer Load Balancer.
+     * @param workRequestMaxNumber the work request max number.
+     * @return the libsvm data.
+     */
+    String observer(final int workRequestMaxNumber);
+
+    /**
+     * Execute the Asker Load Balancer.
+     * @param workRequestMaxNumber the work request max number.
+     * @return the libsvm data.
+     */
+    String asker(final int workRequestMaxNumber);
+
 }

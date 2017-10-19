@@ -35,6 +35,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import silveira.felipe.intelligent.loadbalancer.LoadBalancerManager;
 import silveira.felipe.intelligent.loadbalancer.workunit.WorkReport;
 import silveira.felipe.intelligent.loadbalancer.workunit.WorkUnitManager;
 
@@ -61,6 +62,12 @@ public class LoadBalancerController {
     private WorkUnitManager workerManager;
 
     /**
+     * {@link LoadBalancerManager}.
+     */
+    @Autowired
+    private LoadBalancerManager loadBalancerManager;
+
+    /**
      * This method handles the request for a specific number of workers.
      *
      * @param workers the numbers of workers requested.
@@ -72,7 +79,37 @@ public class LoadBalancerController {
         LOGGER.debug("requestWorkers method called with workers={}.", workers);
         return ResponseEntity
                 .ok()
-                .body(workerManager.workRequest(workers, 0));
+                .body(workerManager.workRequest(workers, 0, "none"));
+    }
+
+    /**
+     * This method handles the request for a roundRobin balancing for a specific number of request number of work.
+     *
+     * @param workRequestMaxNumber the numbers of workers requested.
+     * @return the Work report response.
+     */
+    @RequestMapping(value = "/roundRobin", method = GET)
+    public ResponseEntity<String> roundRobinBalancing(
+            @RequestHeader(value = "workRequestMaxNumber") @NotNull final int workRequestMaxNumber) {
+        LOGGER.debug("roundRobinBalancing method called with workRequestMaxNumber={}.", workRequestMaxNumber);
+        return ResponseEntity
+                .ok()
+                .body(loadBalancerManager.roundRobin(workRequestMaxNumber));
+    }
+
+    /**
+     * This method handles the request for a Observer balancing for a specific number of request number of work.
+     *
+     * @param workRequestMaxNumber the numbers of workers requested.
+     * @return the Work report response.
+     */
+    @RequestMapping(value = "/observer", method = GET)
+    public ResponseEntity<String> observerBalancing(
+            @RequestHeader(value = "workRequestMaxNumber") @NotNull final int workRequestMaxNumber) {
+        LOGGER.debug("observerBalancing method called with workRequestMaxNumber={}.", workRequestMaxNumber);
+        return ResponseEntity
+                .ok()
+                .body(loadBalancerManager.observer(workRequestMaxNumber));
     }
 
     /**
